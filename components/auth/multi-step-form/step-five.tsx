@@ -11,60 +11,47 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 
-export const thirdStepSchema = z.object({
-  description: z.string(),
+export const fifthStepSchema = z.object({
+  name: z.string(),
 });
 
-interface StepThreeProps {
+interface StepFiveProps {
   onBack: () => void;
-  onNext: (data: z.infer<typeof thirdStepSchema>) => void;
+  onNext: (data: z.infer<typeof fifthStepSchema>) => void;
 }
 
-const StepThree = ({ onBack, onNext }: StepThreeProps) => {
-  const form = useForm<z.infer<typeof thirdStepSchema>>({
-    resolver: zodResolver(thirdStepSchema),
+const StepFive = ({ onBack, onNext }: StepFiveProps) => {
+  const form = useForm<z.infer<typeof fifthStepSchema>>({
+    resolver: zodResolver(fifthStepSchema),
   });
 
-  const onSubmit = (values: z.infer<typeof thirdStepSchema>) => {
+  const onSubmit = (values: z.infer<typeof fifthStepSchema>) => {
     onNext(values);
   };
 
   return (
     <div>
-      <h3 className='text-3xl font-bold'>
-        Wichtig! Erzähl mir ein bisschen von deinem Projekt
-      </h3>
-      <p className='text-gray-500 text-sm mt-3'>
-        Die folgenden drei Fragen helfen mir dabei, einen ersten Überblick über
-        dein Vorhaben zu bekommen. Lass dir ruhig etwas Zeit dafür.
-      </p>
-      <p className='text-gray-500 text-sm mt-3'>
-        01. Um was geht es in deinem Projekt und warum ist es wichtig?
-      </p>
-      <p className='text-gray-500 text-sm mt-3'>
-        02. Welche Probleme sollen damit gelöst werden?
-      </p>
-      <p className='text-gray-500 text-sm mt-3'>
-        03. Was sind die Ziele für dieses Projekt?
-      </p>
+      <h3 className='text-3xl font-bold'>Wie ist dein Name?</h3>
+      <p className='text-gray-500 text-sm mt-3'>Vor- und Nachname</p>
       <div className='mt-10'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-10'>
             <FormField
               control={form.control}
-              name='description'
+              name='name'
               render={({ field }) => (
                 <FormItem>
                   {/* <FormLabel>
-                    Wichtig! Erzähl mir ein bisschen von deinem Projekt
+                   Wie ist dein Name?
                   </FormLabel> */}
                   <FormControl>
-                    <Textarea
+                    <Input
                       {...field}
                       placeholder='Gib hier deine Antwort ein...'
+                      type='text'
                     />
                   </FormControl>
                   <FormMessage />
@@ -85,4 +72,4 @@ const StepThree = ({ onBack, onNext }: StepThreeProps) => {
   );
 };
 
-export default StepThree;
+export default StepFive;

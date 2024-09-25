@@ -1,26 +1,21 @@
-import {
-  pgTable,
-  text,
-  pgEnum,
-} from "drizzle-orm/pg-core"
+import { pgTable, text, pgEnum } from 'drizzle-orm/pg-core';
 
-export const SkillLevelEnum = pgEnum("skill_level", [
-  "Beginner",
-  "Intermediate",
-  "Advanced",
-  "Expert",
-  "Master",
+export const serviceEnum = pgEnum('service', [
+  'Web Development',
+  'MVP Entwicklung',
+  'Prozess Automatisierung',
+  'Ich brauche alles',
 ]);
 
-export const users = pgTable("user", {
-  id: text("id")
+export const clients = pgTable('client', {
+  id: text('id')
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  firstName: text("firstName"),
-  lastName: text("lastName"),
-  location: text("location"),
-  email: text("email").notNull(),
-  image: text("image").default("no-image"),
-  password: text("password"),
-  skillLevel: SkillLevelEnum("skill_level").notNull().default("Beginner"),
-})
+  service: serviceEnum('service').notNull().default('Web Development'),
+  budget: text('budget'),
+  description: text('description'),
+  deadline: text('deadline'),
+  name: text('name'),
+  contactLink: text('contactLink'),
+  email: text('email').notNull(),
+});

@@ -1,38 +1,45 @@
-"use server";
+'use server';
 
-import { RegisterSchema } from "@/types/register-schema";
-import { actionClient } from "@/lib/safe-action";
-import bcrypt from "bcrypt"
-import { db } from "../db";
-import { eq } from "drizzle-orm";
-import { users } from "../schema";
-
-
-
+import { RegisterSchema } from '@/types/register-schema';
+import { actionClient } from '@/lib/safe-action';
+import { db } from '../db';
+import { eq } from 'drizzle-orm';
+import { clients } from '../schema';
 
 export const RegisterAccount = actionClient
   .schema(RegisterSchema)
   .action(
-    async ({ parsedInput: { email, password, lastName, firstName, skillLevel, location } }) => {
-      const hashedPassword = await bcrypt.hash(password, 10)
-
-      const existingUser = await db.query.users.findFirst({
-        where: eq(users.email, email),
-      })
-
-      if (existingUser) {
-        return {error: "Looks like you already have an account. Please log in."};
-      }
-
-      await db.insert(users).values({
-        firstName: firstName,
-        lastName: lastName,
-        location: location,
-        email: email,
-        password: hashedPassword,
-        skillLevel: skillLevel,
+    async ({
+      parsedInput: {
+        service,
+        budget,
+        description,
+        deadline,
+        name,
+        contactLink,
+        email,
+      },
+    }) => {
+      const existingUser = await db.query.clients.findFirst({
+        where: eq(clients.email, email),
       });
 
-      return {success: "Account created successfully"}
+      if (existingUser) {
+        return {
+          error: 'Looks like you already have an account. Please log in.',
+        };
+      }
+
+      await db.insert(clients).values({
+        service: service,
+        budget: budget,
+        description: description,
+        deadline: deadline,
+        name: name,
+        contactLink: contactLink,
+        email: email,
+      });
+
+      return { success: 'Account created successfully' };
     }
-  )
+  );

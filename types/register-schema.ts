@@ -1,14 +1,18 @@
-import * as z from "zod";
+import * as z from 'zod';
 
-
-const SkillLevelEnum = z.enum(["Beginner", "Intermediate", "Advanced", "Expert", "Master"]);
+const serviceEnum = z.enum([
+  'Web Development',
+  'MVP Entwicklung',
+  'Prozess Automatisierung',
+  'Ich brauche alles',
+]);
 
 export const RegisterSchema = z.object({
+  service: serviceEnum,
+  budget: z.string(),
+  description: z.string(),
+  deadline: z.string(),
+  name: z.string(),
+  contactLink: z.string(),
   email: z.string().email(),
-  password: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  location: z.string(),
-  confirmPassword: z.string(),
-  skillLevel: SkillLevelEnum,
 });

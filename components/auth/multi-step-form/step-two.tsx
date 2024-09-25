@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 import {
   Form,
   FormControl,
@@ -10,29 +10,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "@/components/ui/radio-group";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/form';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Button } from '@/components/ui/button';
 
 export const Step2Schema = z.object({
-  skillLevel: z.enum([
-    "Beginner",
-    "Intermediate",
-    "Advanced",
-    "Expert",
-    "Master",
+  budget: z.enum([
+    '2.000€ - 5.000€',
+    '5.000€ - 10.000€',
+    '10.000€ - 20.000€',
+    '>20.000€',
   ]),
 });
 
-const skillLevels = [
-  "Beginner",
-  "Intermediate",
-  "Advanced",
-  "Expert",
-  "Master",
+const budget = [
+  '2.000€ - 5.000€',
+  '5.000€ - 10.000€',
+  '10.000€ - 20.000€',
+  '>20.000€',
 ];
 
 interface StepTwoProps {
@@ -45,49 +40,48 @@ const StepTwo = ({ onNext, onBack }: StepTwoProps) => {
     resolver: zodResolver(Step2Schema),
   });
 
-  const onSubmit = (
-    values: z.infer<typeof Step2Schema>
-  ) => {
+  const onSubmit = (values: z.infer<typeof Step2Schema>) => {
     onNext(values);
   };
   return (
     <div>
-      <h3 className="text-3xl from-bold">
-        Developer Skill Level
+      <h3 className='text-3xl from-bold'>
+        Gute Wahl! Jetzt muss ich noch wissen, wie hoch das Budget für das
+        gesamte Projekt ist?
       </h3>
-      <p className="text-gray-500 text-sm mt-3">
-        💪 Every expert was once a beginner. Where do you
-        stand?
+      <p className='text-gray-500 text-sm mt-3'>
+        Die meisten dieser Projekte bewegen sich bei mir zwischen 10.000€ und
+        20.000€. Was, wieso, warum... schauen wir uns am Besten gemeinsam an und
+        dann weißt du auch, warum es sich lohnt, in eine richtig gute
+        Web-Entwicklung zu investieren.
       </p>
-      <div className="mt-10">
+      <div className='mt-10'>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             <FormField
               control={form.control}
-              name="skillLevel"
+              name='budget'
               render={({ field }) => (
-                <FormItem className="space-y-3">
-                  <FormLabel>
-                    What is your skill level?
-                  </FormLabel>
+                <FormItem className='space-y-3'>
+                  {/* <FormLabel>
+                    Gute Wahl! Jetzt muss ich noch wissen, wie hoch das Budget
+                    für das gesamte Projekt ist?
+                  </FormLabel> */}
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="flex flex-col space-y-2"
+                      className='flex flex-col space-y-2'
                     >
-                      {skillLevels.map((level) => (
+                      {budget.map((budgetValue) => (
                         <FormItem
-                          key={level}
-                          className="flex items-center space-x-3 space-y-0"
+                          key={budgetValue}
+                          className='flex items-center space-x-3 space-y-0'
                         >
                           <FormControl>
-                            <RadioGroupItem value={level} />
+                            <RadioGroupItem value={budgetValue} />
                           </FormControl>
-                          <FormLabel>{level}</FormLabel>
+                          <FormLabel>{budgetValue}</FormLabel>
                         </FormItem>
                       ))}
                     </RadioGroup>
@@ -95,11 +89,11 @@ const StepTwo = ({ onNext, onBack }: StepTwoProps) => {
                 </FormItem>
               )}
             />
-            <div className="flex justify-between">
-              <Button onClick={onBack} variant="secondary">
+            <div className='flex justify-between'>
+              <Button onClick={onBack} variant='secondary'>
                 Back
               </Button>
-              <Button type="submit">Continue</Button>
+              <Button type='submit'>Ok</Button>
             </div>
           </form>
         </Form>

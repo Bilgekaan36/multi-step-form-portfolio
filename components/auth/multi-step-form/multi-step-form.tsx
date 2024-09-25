@@ -1,27 +1,34 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import StepOne from "./step-one";
-import { Progress } from "@/components/ui/progress";
-import StepTwo from "./step-two";
-import StepThree from "./step-three";
-import { useAction } from "next-safe-action/hooks";
-import { RegisterAccount } from "@/server/actions/register";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { RegisterSchema } from "@/types/register-schema";
-import { z } from "zod";
-import Link from "next/link";
+import StepOne from './step-one';
+import { Progress } from '@/components/ui/progress';
+import StepTwo from './step-two';
+import StepThree from './step-three';
+import { useAction } from 'next-safe-action/hooks';
+import { RegisterAccount } from '@/server/actions/register';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { RegisterSchema } from '@/types/register-schema';
+import { z } from 'zod';
+import Link from 'next/link';
+import { link } from 'fs';
+import StepFour from './step-four';
+import StepFive from './step-five';
+import StepSix from './step-six';
+import StepSeven from './step-seven';
 
 export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    firstName: "",
-    location: "",
-    lastName: "",
+    service: '',
+    budget: '',
+    description: '',
+    deadline: '',
+    name: '',
+    contactLink: '',
+    email: '',
   });
 
   const handleNextStep = (data: any) => {
@@ -33,18 +40,26 @@ export default function MultiStepForm() {
     setCurrentStep(currentStep - 1);
   };
 
-  const progressValue = (currentStep / 3) * 100;
+  const progressValue = (currentStep / 7) * 100;
 
   const stepText = () => {
     switch (currentStep) {
       case 1:
-        return "Step 1 - Create Account";
+        return 'Was brauchst du von mir?';
       case 2:
-        return "Step Two - Skill Level";
+        return 'Gute Wahl! Jetzt muss ich noch wissen, wie hoch das Budget für das gesamte Projekt ist?';
       case 3:
-        return "Step Three - Create Password";
+        return 'Wichtig! Erzähl mir ein bisschen von deinem Projekt';
+      case 4:
+        return 'Immer gut zu wissen: Gibt es bereits eine Deadline?';
+      case 5:
+        return 'Wie ist dein Name?';
+      case 6:
+        return 'Wo kann man dich/euch im Internet finden?';
+      case 7:
+        return 'Wie lautet deine E-Mail Adresse?';
       default:
-        return "";
+        return '';
     }
   };
 
@@ -54,56 +69,49 @@ export default function MultiStepForm() {
     onSuccess(data) {
       if (data.data?.error) {
         toast.error(data.data.error);
-        router.push("/login");
+        router.push('/login');
       } else if (data.data?.success) {
         toast.success(data.data?.success);
-        router.push("/login");
+        router.push('/login');
       }
     },
   });
-  const finalSubmit = (
-    values: z.infer<typeof RegisterSchema>
-  ) => {
+  const finalSubmit = (values: z.infer<typeof RegisterSchema>) => {
     execute(values);
   };
 
   return (
-    <div className="w-2/3 p-8 flex flex-col">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-2">
-          {stepText()}
-        </h1>
-        <Progress value={progressValue} className="h-2" />
+    <div className='w-2/3 p-8 flex flex-col'>
+      <div className='mb-8'>
+        <h1 className='text-2xl font-bold mb-2'>{stepText()}</h1>
+        <Progress value={progressValue} className='h-2' />
       </div>
 
-      <div className="flex-grow flex flex-col justify-center max-w-md mx-auto w-full">
-        {currentStep === 1 && (
-          <StepOne onNext={handleNextStep} />
-        )}
+      <div className='flex-grow flex flex-col justify-center max-w-md mx-auto w-full'>
+        {currentStep === 1 && <StepOne onNext={handleNextStep} />}
         {currentStep === 2 && (
-          <StepTwo
-            onNext={handleNextStep}
-            onBack={handlePreviousStep}
-          />
+          <StepTwo onNext={handleNextStep} onBack={handlePreviousStep} />
         )}
         {currentStep === 3 && (
-          <StepThree
+          <StepThree onNext={handleNextStep} onBack={handlePreviousStep} />
+        )}
+        {currentStep === 4 && (
+          <StepFour onNext={handleNextStep} onBack={handlePreviousStep} />
+        )}
+        {currentStep === 5 && (
+          <StepFive onNext={handleNextStep} onBack={handlePreviousStep} />
+        )}
+        {currentStep === 6 && (
+          <StepSix onNext={handleNextStep} onBack={handlePreviousStep} />
+        )}
+        {currentStep === 7 && (
+          <StepSeven
             onBack={handlePreviousStep}
             handleSubmit={finalSubmit}
             formData={formData}
           />
         )}
       </div>
-
-      <p className="text-center text-gray-600 text-sm mt-6">
-        Already have an account?{" "}
-        <Link
-          href="/login"
-          className="text-blue-600 hover:underline"
-        >
-          Log In
-        </Link>
-      </p>
     </div>
   );
 }
