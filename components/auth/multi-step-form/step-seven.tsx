@@ -27,7 +27,7 @@ interface StepSevenProps {
 
 const StepSeven = ({ onBack, handleSubmit, formData }: StepSevenProps) => {
   const form = useForm<z.infer<typeof RegisterSchema>>({
-    resolver: zodResolver(seventhStepSchema),
+    resolver: zodResolver(RegisterSchema),
     defaultValues: formData,
   });
 
@@ -63,7 +63,7 @@ const StepSeven = ({ onBack, handleSubmit, formData }: StepSevenProps) => {
             />
 
             <div className='flex justify-between'>
-              <Button onClick={onBack} variant='secondary'>
+              <Button onClick={onBack} type='button' variant='secondary'>
                 Back
               </Button>
               <Button type='submit' disabled={form.formState.isSubmitting}>

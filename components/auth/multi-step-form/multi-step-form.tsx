@@ -28,7 +28,7 @@ export default function MultiStepForm() {
     deadline: '',
     name: '',
     contactLink: '',
-    email: '',
+    email: 'test@hallo.de',
   });
 
   const handleNextStep = (data: any) => {
@@ -63,16 +63,16 @@ export default function MultiStepForm() {
     }
   };
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const { execute } = useAction(RegisterAccount, {
     onSuccess(data) {
       if (data.data?.error) {
         toast.error(data.data.error);
-        router.push('/login');
+        console.log('ERROR', data.data);
       } else if (data.data?.success) {
         toast.success(data.data?.success);
-        router.push('/login');
+        console.log('SUCCESS', data.data);
       }
     },
   });

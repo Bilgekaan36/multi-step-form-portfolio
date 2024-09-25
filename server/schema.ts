@@ -8,9 +8,9 @@ export const serviceEnum = pgEnum('service', [
 ]);
 
 export const clients = pgTable('client', {
-  id: text('id')
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
+  // id: text('id')
+  //   .primaryKey()
+  //   .$defaultFn(() => crypto.randomUUID()),
   service: serviceEnum('service').notNull().default('Web Development'),
   budget: text('budget'),
   description: text('description'),

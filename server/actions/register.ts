@@ -20,11 +20,11 @@ export const RegisterAccount = actionClient
         email,
       },
     }) => {
-      const existingUser = await db.query.clients.findFirst({
+      const existingClient = await db.query.clients.findFirst({
         where: eq(clients.email, email),
       });
 
-      if (existingUser) {
+      if (existingClient) {
         return {
           error: 'Looks like you already have an account. Please log in.',
         };

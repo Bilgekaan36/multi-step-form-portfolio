@@ -1,6 +1,3 @@
-import { auth } from '@/server/auth';
-import { redirect } from 'next/navigation';
-import LogoutButton from '@/components/auth/logout-button';
 import MultiStepForm from '@/components/auth/multi-step-form/multi-step-form';
 
 export default async function Home() {
