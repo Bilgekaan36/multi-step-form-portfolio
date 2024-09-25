@@ -34,20 +34,20 @@ const StepThree = ({ onBack, onNext }: StepThreeProps) => {
 
   return (
     <div>
-      <h3 className='text-3xl font-bold'>
+      <h3 className='text-3xl'>
         Wichtig! Erzähl mir ein bisschen von deinem Projekt
       </h3>
-      <p className='text-gray-500 text-sm mt-3'>
+      <p className='text-gray-500 text-lg mt-3'>
         Die folgenden drei Fragen helfen mir dabei, einen ersten Überblick über
         dein Vorhaben zu bekommen. Lass dir ruhig etwas Zeit dafür.
       </p>
-      <p className='text-gray-500 text-sm mt-3'>
+      <p className='text-gray-500 text-lg mt-3'>
         01. Um was geht es in deinem Projekt und warum ist es wichtig?
       </p>
-      <p className='text-gray-500 text-sm mt-3'>
+      <p className='text-gray-500 text-lg mt-3'>
         02. Welche Probleme sollen damit gelöst werden?
       </p>
-      <p className='text-gray-500 text-sm mt-3'>
+      <p className='text-gray-500 text-lg mt-3'>
         03. Was sind die Ziele für dieses Projekt?
       </p>
       <div className='mt-10'>
@@ -72,11 +72,20 @@ const StepThree = ({ onBack, onNext }: StepThreeProps) => {
               )}
             />
 
-            <div className='flex justify-between'>
-              <Button onClick={onBack} variant='secondary'>
-                Back
+            <div>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg text-white font-medium bg-red-600 hover:bg-red-700'
+                onClick={onBack}
+                variant='secondary'
+              >
+                Zurück
               </Button>
-              <Button type='submit'>Ok</Button>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg font-medium bg-red-600 hover:bg-red-700'
+                type='submit'
+              >
+                Weiter
+              </Button>
             </div>
           </form>
         </Form>

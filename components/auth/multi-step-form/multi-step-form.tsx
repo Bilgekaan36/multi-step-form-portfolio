@@ -9,18 +9,17 @@ import StepThree from './step-three';
 import { useAction } from 'next-safe-action/hooks';
 import { RegisterAccount } from '@/server/actions/register';
 import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
 import { RegisterSchema } from '@/types/register-schema';
 import { z } from 'zod';
-import Link from 'next/link';
-import { link } from 'fs';
+
 import StepFour from './step-four';
 import StepFive from './step-five';
 import StepSix from './step-six';
 import StepSeven from './step-seven';
+import StepZero from './step-zero';
 
 export default function MultiStepForm() {
-  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [currentStep, setCurrentStep] = useState<number>(0);
   const [formData, setFormData] = useState({
     service: '',
     budget: '',
@@ -28,7 +27,7 @@ export default function MultiStepForm() {
     deadline: '',
     name: '',
     contactLink: '',
-    email: 'test@hallo.de',
+    email: '',
   });
 
   const handleNextStep = (data: any) => {
@@ -63,8 +62,6 @@ export default function MultiStepForm() {
     }
   };
 
-  // const router = useRouter();
-
   const { execute } = useAction(RegisterAccount, {
     onSuccess(data) {
       if (data.data?.error) {
@@ -81,14 +78,17 @@ export default function MultiStepForm() {
   };
 
   return (
-    <div className='w-2/3 p-8 flex flex-col'>
+    <div className='w-full md:w-1/2 p-8 flex flex-col'>
       <div className='mb-8'>
-        <h1 className='text-2xl font-bold mb-2'>{stepText()}</h1>
+        {/* <h1 className='text-2xl font-bold mb-2'>{stepText()}</h1> */}
         <Progress value={progressValue} className='h-2' />
       </div>
 
-      <div className='flex-grow flex flex-col justify-center max-w-md mx-auto w-full'>
-        {currentStep === 1 && <StepOne onNext={handleNextStep} />}
+      <div className='flex-grow flex flex-col justify-center max-w-xl mx-auto w-full'>
+        {currentStep === 0 && <StepZero onNext={handleNextStep} />}
+        {currentStep === 1 && (
+          <StepOne onNext={handleNextStep} onBack={handlePreviousStep} />
+        )}
         {currentStep === 2 && (
           <StepTwo onNext={handleNextStep} onBack={handlePreviousStep} />
         )}

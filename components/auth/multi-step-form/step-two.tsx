@@ -45,11 +45,11 @@ const StepTwo = ({ onNext, onBack }: StepTwoProps) => {
   };
   return (
     <div>
-      <h3 className='text-3xl from-bold'>
+      <h3 className='text-3xl'>
         Gute Wahl! Jetzt muss ich noch wissen, wie hoch das Budget für das
         gesamte Projekt ist?
       </h3>
-      <p className='text-gray-500 text-sm mt-3'>
+      <p className='text-gray-500 text-lg mt-3'>
         Die meisten dieser Projekte bewegen sich bei mir zwischen 10.000€ und
         20.000€. Was, wieso, warum... schauen wir uns am Besten gemeinsam an und
         dann weißt du auch, warum es sich lohnt, in eine richtig gute
@@ -81,7 +81,9 @@ const StepTwo = ({ onNext, onBack }: StepTwoProps) => {
                           <FormControl>
                             <RadioGroupItem value={budgetValue} />
                           </FormControl>
-                          <FormLabel>{budgetValue}</FormLabel>
+                          <FormLabel className='text-md'>
+                            {budgetValue}
+                          </FormLabel>
                         </FormItem>
                       ))}
                     </RadioGroup>
@@ -89,11 +91,20 @@ const StepTwo = ({ onNext, onBack }: StepTwoProps) => {
                 </FormItem>
               )}
             />
-            <div className='flex justify-between'>
-              <Button onClick={onBack} variant='secondary'>
-                Back
+            <div>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg text-white font-medium bg-red-600 hover:bg-red-700'
+                onClick={onBack}
+                variant='secondary'
+              >
+                Zurück
               </Button>
-              <Button type='submit'>Ok</Button>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg font-medium bg-red-600 hover:bg-red-700'
+                type='submit'
+              >
+                Weiter
+              </Button>
             </div>
           </form>
         </Form>

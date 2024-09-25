@@ -34,7 +34,7 @@ const StepFour = ({ onBack, onNext }: StepFourProps) => {
 
   return (
     <div>
-      <h3 className='text-3xl font-bold'>
+      <h3 className='text-3xl'>
         Immer gut zu wissen: Gibt es bereits eine Deadline?
       </h3>
       <div className='mt-10'>
@@ -60,11 +60,20 @@ const StepFour = ({ onBack, onNext }: StepFourProps) => {
               )}
             />
 
-            <div className='flex justify-between'>
-              <Button onClick={onBack} variant='secondary'>
-                Back
+            <div>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg text-white font-medium bg-red-600 hover:bg-red-700'
+                onClick={onBack}
+                variant='secondary'
+              >
+                Zurück
               </Button>
-              <Button type='submit'>Ok</Button>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg font-medium bg-red-600 hover:bg-red-700'
+                type='submit'
+              >
+                Weiter
+              </Button>
             </div>
           </form>
         </Form>

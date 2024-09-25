@@ -34,8 +34,8 @@ const StepFive = ({ onBack, onNext }: StepFiveProps) => {
 
   return (
     <div>
-      <h3 className='text-3xl font-bold'>Wie ist dein Name?</h3>
-      <p className='text-gray-500 text-sm mt-3'>Vor- und Nachname</p>
+      <h3 className='text-3xl'>Wie ist dein Name?</h3>
+      <p className='text-gray-500 text-lg mt-3'>Vor- und Nachname</p>
       <div className='mt-10'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-10'>
@@ -59,11 +59,20 @@ const StepFive = ({ onBack, onNext }: StepFiveProps) => {
               )}
             />
 
-            <div className='flex justify-between'>
-              <Button onClick={onBack} variant='secondary'>
-                Back
+            <div>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg text-white font-medium bg-red-600 hover:bg-red-700'
+                onClick={onBack}
+                variant='secondary'
+              >
+                Zurück
               </Button>
-              <Button type='submit'>Ok</Button>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg font-medium bg-red-600 hover:bg-red-700'
+                type='submit'
+              >
+                Weiter
+              </Button>
             </div>
           </form>
         </Form>

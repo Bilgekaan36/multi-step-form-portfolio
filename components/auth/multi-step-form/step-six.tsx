@@ -34,10 +34,8 @@ const StepSix = ({ onBack, onNext }: StepSixProps) => {
 
   return (
     <div>
-      <h3 className='text-3xl font-bold'>
-        Wo kann man dich/euch im Internet finden?
-      </h3>
-      <p className='text-gray-500 text-sm mt-3'>
+      <h3 className='text-3xl'>Wo kann man dich/euch im Internet finden?</h3>
+      <p className='text-gray-500 text-lg mt-3'>
         LinkedIn Profil und so geht aber auch.
       </p>
       <div className='mt-10'>
@@ -59,11 +57,20 @@ const StepSix = ({ onBack, onNext }: StepSixProps) => {
               )}
             />
 
-            <div className='flex justify-between'>
-              <Button onClick={onBack} variant='secondary'>
-                Back
+            <div>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg text-white font-medium bg-red-600 hover:bg-red-700'
+                onClick={onBack}
+                variant='secondary'
+              >
+                Zurück
               </Button>
-              <Button type='submit'>Ok</Button>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg font-medium bg-red-600 hover:bg-red-700'
+                type='submit'
+              >
+                Weiter
+              </Button>
             </div>
           </form>
         </Form>

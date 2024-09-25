@@ -37,8 +37,7 @@ const StepSeven = ({ onBack, handleSubmit, formData }: StepSevenProps) => {
 
   return (
     <div>
-      <h3 className='text-3xl font-bold'>Wie lautet deine E-Mail Adresse?</h3>
-
+      <h3 className='text-3xl'>Wie lautet deine E-Mail Adresse?</h3>
       <div className='mt-10'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-10'>
@@ -62,12 +61,21 @@ const StepSeven = ({ onBack, handleSubmit, formData }: StepSevenProps) => {
               )}
             />
 
-            <div className='flex justify-between'>
-              <Button onClick={onBack} type='button' variant='secondary'>
-                Back
+            <div>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg text-white font-medium bg-red-600 hover:bg-red-700'
+                onClick={onBack}
+                type='button'
+                variant='secondary'
+              >
+                Zurück
               </Button>
-              <Button type='submit' disabled={form.formState.isSubmitting}>
-                Ok
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-lg font-medium bg-red-600 hover:bg-red-700'
+                type='submit'
+                disabled={form.formState.isSubmitting}
+              >
+                Senden
               </Button>
             </div>
           </form>

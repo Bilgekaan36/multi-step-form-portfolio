@@ -9,14 +9,13 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 type StepOneProps = {
   onNext: (values: z.infer<typeof firstStepSchema>) => void;
+  onBack: () => void;
 };
 
 const serviceTypes = [
@@ -35,7 +34,7 @@ export const firstStepSchema = z.object({
   ]),
 });
 
-const StepOne = ({ onNext }: StepOneProps) => {
+const StepOne = ({ onNext, onBack }: StepOneProps) => {
   const form = useForm<z.infer<typeof firstStepSchema>>({
     resolver: zodResolver(firstStepSchema),
   });
@@ -45,8 +44,8 @@ const StepOne = ({ onNext }: StepOneProps) => {
   };
   return (
     <div>
-      <h3 className='text-3xl from-bold'>Hallo! Was brauchst du von mir?</h3>
-      <p className='text-gray-500 text-sm mt-3'>
+      <h3 className='text-3xl'>Hallo! Was brauchst du von mir?</h3>
+      <p className='text-gray-500 text-lg mt-3'>
         Aber Vorsicht: Bei Kontaktaufnahme besteht die Gefahr, ein exzellentes
         Design zubekommen, das nicht nur gut aussieht, sondern dir in Zukunft
         auch wirklich hilft. Also, wenn du keinen Erfolg haben willst, solltest
@@ -76,7 +75,7 @@ const StepOne = ({ onNext }: StepOneProps) => {
                             <FormControl>
                               <RadioGroupItem value={service} />
                             </FormControl>
-                            <FormLabel>{service}</FormLabel>
+                            <FormLabel className='text-md'>{service}</FormLabel>
                           </FormItem>
                         ))}
                       </RadioGroup>
@@ -85,10 +84,22 @@ const StepOne = ({ onNext }: StepOneProps) => {
                 )}
               />
             </div>
+            <div>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-md text-white font-medium bg-red-600 hover:bg-red-700'
+                onClick={onBack}
+                variant='secondary'
+              >
+                Zurück
+              </Button>
 
-            <Button className='mt-5 w-full' type='submit'>
-              Ok
-            </Button>
+              <Button
+                className='mt-4 mr-4 py-3 px-4 text-md font-medium bg-red-600 hover:bg-red-700'
+                type='submit'
+              >
+                Weiter
+              </Button>
+            </div>
           </form>
         </Form>
       </div>
