@@ -2,7 +2,7 @@
 
 const Success = () => {
   return (
-    <div className='bg-white p-8  max-w-md w-full mx-auto'>
+    <div className='w-full md:w-1/2 p-8 flex flex-col justify-center'>
       <h3 className='text-3xl font-bold text-center text-gray-800 mb-2'>
         Vielen Dank für deine Anfrage!
       </h3>

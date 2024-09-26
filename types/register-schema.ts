@@ -15,5 +15,5 @@ export const RegisterSchema = z.object({
   name: z.string(),
   contactLink: z.string(),
   email: z.string().email(),
-  success: z.string(),
+  success: z.string().optional(),
 });
