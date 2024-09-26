@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { RegisterSchema } from '@/types/register-schema';
 
 export const seventhStepSchema = z.object({
   email: z.string(),
@@ -21,18 +20,16 @@ export const seventhStepSchema = z.object({
 
 interface StepSevenProps {
   onBack: () => void;
-  handleSubmit: (values: z.infer<typeof RegisterSchema>) => void;
-  formData: any;
+  onNext: (data: z.infer<typeof seventhStepSchema>) => void;
 }
 
-const StepSeven = ({ onBack, handleSubmit, formData }: StepSevenProps) => {
-  const form = useForm<z.infer<typeof RegisterSchema>>({
-    resolver: zodResolver(RegisterSchema),
-    defaultValues: formData,
+const StepSeven = ({ onBack, onNext }: StepSevenProps) => {
+  const form = useForm<z.infer<typeof seventhStepSchema>>({
+    resolver: zodResolver(seventhStepSchema),
   });
 
-  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    handleSubmit(values);
+  const onSubmit = (values: z.infer<typeof seventhStepSchema>) => {
+    onNext(values);
   };
 
   return (
@@ -73,9 +70,8 @@ const StepSeven = ({ onBack, handleSubmit, formData }: StepSevenProps) => {
               <Button
                 className='mt-4 mr-4 py-3 px-4 text-lg font-medium bg-red-600 hover:bg-red-700'
                 type='submit'
-                disabled={form.formState.isSubmitting}
               >
-                Senden
+                Weiter
               </Button>
             </div>
           </form>

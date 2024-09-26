@@ -10,6 +10,7 @@ import { useAction } from 'next-safe-action/hooks';
 import { RegisterAccount } from '@/server/actions/register';
 import toast from 'react-hot-toast';
 import { RegisterSchema } from '@/types/register-schema';
+import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 
 import StepFour from './step-four';
@@ -17,6 +18,7 @@ import StepFive from './step-five';
 import StepSix from './step-six';
 import StepSeven from './step-seven';
 import StepZero from './step-zero';
+import StepEight from './step-eight';
 
 export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -39,37 +41,18 @@ export default function MultiStepForm() {
     setCurrentStep(currentStep - 1);
   };
 
-  const progressValue = (currentStep / 7) * 100;
+  const progressValue = (currentStep / 8) * 100;
 
-  const stepText = () => {
-    switch (currentStep) {
-      case 1:
-        return 'Was brauchst du von mir?';
-      case 2:
-        return 'Gute Wahl! Jetzt muss ich noch wissen, wie hoch das Budget für das gesamte Projekt ist?';
-      case 3:
-        return 'Wichtig! Erzähl mir ein bisschen von deinem Projekt';
-      case 4:
-        return 'Immer gut zu wissen: Gibt es bereits eine Deadline?';
-      case 5:
-        return 'Wie ist dein Name?';
-      case 6:
-        return 'Wo kann man dich/euch im Internet finden?';
-      case 7:
-        return 'Wie lautet deine E-Mail Adresse?';
-      default:
-        return '';
-    }
-  };
+  const router = useRouter();
 
   const { execute } = useAction(RegisterAccount, {
     onSuccess(data) {
       if (data.data?.error) {
         toast.error(data.data.error);
-        console.log('ERROR', data.data);
+        // router.push('/login');
       } else if (data.data?.success) {
         toast.success(data.data?.success);
-        console.log('SUCCESS', data.data);
+        router.push('/success');
       }
     },
   });
@@ -80,7 +63,6 @@ export default function MultiStepForm() {
   return (
     <div className='w-full md:w-1/2 p-8 flex flex-col'>
       <div className='mb-8'>
-        {/* <h1 className='text-2xl font-bold mb-2'>{stepText()}</h1> */}
         <Progress value={progressValue} className='h-2' />
       </div>
 
@@ -105,7 +87,10 @@ export default function MultiStepForm() {
           <StepSix onNext={handleNextStep} onBack={handlePreviousStep} />
         )}
         {currentStep === 7 && (
-          <StepSeven
+          <StepSeven onNext={handleNextStep} onBack={handlePreviousStep} />
+        )}
+        {currentStep === 8 && (
+          <StepEight
             onBack={handlePreviousStep}
             handleSubmit={finalSubmit}
             formData={formData}

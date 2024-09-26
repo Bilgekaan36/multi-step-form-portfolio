@@ -20,13 +20,14 @@ export const RegisterAccount = actionClient
         email,
       },
     }) => {
-      const existingClient = await db.query.clients.findFirst({
-        where: eq(clients.email, email),
-      });
+      // const existingClient = await db.query.clients.findFirst({
+      //   where: eq(clients.email, email),
+      // });
 
-      if (existingClient) {
+      if (!email) {
         return {
-          error: 'Looks like you already have an account. Please log in.',
+          error:
+            'Bitte Email Adresse angeben, damit ich dich kontaktieren kann!',
         };
       }
 
@@ -40,6 +41,6 @@ export const RegisterAccount = actionClient
         email: email,
       });
 
-      return { success: 'Account created successfully' };
+      return { success: 'Deine Anfrage wurde Erfolgreich versendet!' };
     }
   );
